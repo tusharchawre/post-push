@@ -6,11 +6,13 @@ import { FaGithub, FaGoogle } from 'react-icons/fa'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { Separator } from '../ui/separator'
-import {z} from "zod"
+import * as z from "zod"
 import { useForm } from 'react-hook-form'
 import { LoginSchema } from '@/schema'
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { FormSuccess } from '../Form-success'
+import { FormError } from '../Form-error'
 
 
 export const LoginForm = () => {
@@ -24,7 +26,7 @@ export const LoginForm = () => {
     })
 
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-        
+        console.log(values)
     }
 
 
@@ -45,7 +47,7 @@ export const LoginForm = () => {
             <Separator />
 
             <Form {...form}>
-                <form className='mt-4'>
+                <form className='mt-4' onSubmit={form.handleSubmit(onSubmit)}>
                     <div className='space-y-4'>
                         <FormField control={form.control} name='email' render={({field})=> (
                             <FormItem>
@@ -53,8 +55,9 @@ export const LoginForm = () => {
                                     Email
                                 </FormLabel>
                                 <FormControl>
-                                    <Input placeholder='Email' type='email' {...field} />
+                                    <Input placeholder='Email' className='focus-visible:ring-0' type='email' {...field} />
                                 </FormControl>
+                                <FormMessage />
                             </FormItem>
                         )} />
 
@@ -64,10 +67,15 @@ export const LoginForm = () => {
                                     Password
                                 </FormLabel>
                                 <FormControl>
-                                    <Input placeholder='Password' type='password' {...field} />
+                                    <Input placeholder='Password' className='focus-visible:ring-0' type='password' {...field} />
                                 </FormControl>
+                                <FormMessage />
+
                             </FormItem>
                         )} />
+
+                        <FormSuccess message="You have successfully killed it." />
+                        <FormError message='You have succesfully fucked it up' />
 
                         <Button type='submit' className='w-full' variant="secondary">Sign in with Email</Button>
 
