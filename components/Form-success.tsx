@@ -1,7 +1,11 @@
 import { CircleCheck } from 'lucide-react';
 
 
-export const FormSuccess = ({message}: {message: string}) => {
+export const FormSuccess = ({message}: {message?: string}) => {
+    if(!message){
+        return null;
+    }
+
     return (
         <>
         <div className="w-full h-10 border-emerald-200/50 border rounded-md flex items-center bg-emerald-100 gap-2 px-4">
